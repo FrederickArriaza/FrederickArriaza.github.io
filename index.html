@@ -34,6 +34,12 @@
             position: relative;
         }
 
+        /* Enable scroll on mobile after animation */
+        body.mobile-scroll {
+            overflow-y: auto;
+            min-height: 150vh;
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -598,8 +604,13 @@
 
         /* Responsive Mobile Styles */
         @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
             .question {
-                font-size: 42px;
+                font-size: 40px;
                 padding: 0 20px;
             }
 
@@ -613,58 +624,86 @@
                 font-size: 24px;
             }
 
+            /* Árbol fijo arriba en móvil */
             .tree-container {
-                bottom: 100px;
-                transform: translateX(-50%) scale(0.6);
+                position: fixed;
+                bottom: auto;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%) scale(0.5);
+                z-index: 50;
             }
 
             .tree-container.move-right {
                 left: 50%;
-                transform: translateX(-50%) scale(0.6);
+                transform: translateX(-50%) scale(0.5);
+                transition: none;
             }
 
             canvas {
-                width: 400px !important;
-                height: 400px !important;
+                width: 500px !important;
+                height: 500px !important;
             }
 
+            /* Contador en posición fija abajo del árbol */
             .counter-container {
+                position: fixed;
                 left: 50%;
-                top: auto;
-                bottom: 20px;
-                transform: translateX(-50%);
+                top: 330px;
+                bottom: auto;
+                transform: translateX(-50%) translateX(-150%);
                 max-width: 90%;
-                padding: 20px 25px;
+                padding: 15px 20px;
+                border-radius: 30px;
+                z-index: 60;
             }
 
             .counter-container.show {
-                transform: translateX(-50%);
+                transform: translateX(-50%) translateX(0);
             }
 
             .counter-title {
-                font-size: 14px;
-                margin-bottom: 10px;
+                font-size: 12px;
+                margin-bottom: 8px;
             }
 
             .counter-display {
-                gap: 12px;
+                gap: 8px;
+                flex-wrap: wrap;
             }
 
             .counter-value {
-                font-size: 24px;
-            }
-
-            .counter-label {
-                font-size: 9px;
-            }
-
-            .counter-separator {
                 font-size: 20px;
             }
 
+            .counter-label {
+                font-size: 8px;
+            }
+
+            .counter-separator {
+                font-size: 16px;
+                display: none;
+            }
+
+            .counter-item {
+                min-width: 60px;
+            }
+
+            /* Mensaje romántico scrolleable abajo */
             .romantic-message {
+                position: absolute;
+                left: 50%;
+                top: 480px;
+                transform: translateX(-50%) scale(0.8);
                 max-width: 90%;
-                padding: 0 15px;
+                padding: 0 10px 120px 10px;
+                height: auto;
+                overflow-y: visible;
+                z-index: 70;
+            }
+
+            .romantic-message.show {
+                transform: translateX(-50%) scale(1);
             }
 
             .photo-frame {
@@ -674,32 +713,50 @@
             }
 
             .romantic-text {
-                font-size: 18px;
-                line-height: 1.7;
-                padding: 30px 25px;
+                font-size: 16px;
+                line-height: 1.8;
+                padding: 30px 20px;
+                margin-bottom: 100px;
             }
 
             .romantic-text::before,
             .romantic-text::after {
-                font-size: 52px;
+                font-size: 48px;
             }
 
+            /* Ground más pequeño */
             .ground {
-                height: 120px;
+                height: 80px;
+                position: fixed;
+                bottom: 0;
+                z-index: 1;
+            }
+
+            .stones {
+                display: none;
             }
 
             .flowers {
-                bottom: 15px;
-                padding: 0 30px;
+                bottom: 10px;
+                padding: 0 20px;
             }
 
             .flower {
-                font-size: 32px;
+                font-size: 28px;
+            }
+
+            .grass-blade {
+                height: 30px !important;
             }
 
             .initial-text {
-                font-size: 36px;
+                font-size: 32px;
                 padding: 0 20px;
+            }
+
+            /* Ajustar falling leaves para móvil */
+            .falling-leaves {
+                display: none;
             }
         }
 
@@ -714,30 +771,85 @@
             }
 
             .tree-container {
-                transform: translateX(-50%) scale(0.45);
+                top: 60px;
+                transform: translateX(-50%) scale(0.4);
             }
 
             .tree-container.move-right {
-                transform: translateX(-50%) scale(0.45);
+                transform: translateX(-50%) scale(0.4);
+            }
+
+            .counter-container {
+                top: 280px;
+                padding: 12px 15px;
+            }
+
+            .counter-value {
+                font-size: 18px;
+            }
+
+            .counter-label {
+                font-size: 7px;
+            }
+
+            .counter-item {
+                min-width: 50px;
+            }
+
+            .romantic-message {
+                position: absolute;
+                top: 400px;
+                padding: 0 10px 100px 10px;
             }
 
             .photo-frame {
                 width: 120px;
                 height: 120px;
+                margin-bottom: 15px;
             }
 
             .romantic-text {
-                font-size: 16px;
-                padding: 25px 20px;
+                font-size: 15px;
+                line-height: 1.7;
+                padding: 25px 18px;
             }
 
             .romantic-text::before,
             .romantic-text::after {
-                font-size: 42px;
+                font-size: 40px;
             }
 
             .initial-text {
-                font-size: 28px;
+                font-size: 26px;
+            }
+
+            .ground {
+                height: 60px;
+                z-index: 1;
+            }
+
+            .flower {
+                font-size: 24px;
+            }
+        }
+
+        /* Landscape mode para móviles */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .tree-container {
+                transform: translateX(-50%) scale(0.3);
+                top: 40px;
+            }
+
+            .tree-container.move-right {
+                transform: translateX(-50%) scale(0.3);
+            }
+
+            .counter-container {
+                top: 200px;
+            }
+
+            .romantic-message {
+                top: 280px;
             }
         }
 
@@ -836,7 +948,7 @@
     </div>
 
     <div class="counter-container" id="counterContainer">
-        <div class="counter-title">Nuestro tiempo juntos...</div>
+        <div class="counter-title">Nuestro tiempo juntos</div>
         <div class="counter-display">
             <div class="counter-item">
                 <span class="counter-value" id="days">0</span>
@@ -862,7 +974,7 @@
 
     <div class="romantic-message" id="romanticMessage">
         <div class="photo-frame">
-            <img src="foto-pareja.jpeg" alt="Nosotros" id="couplePhoto">
+            <img src="foto-pareja.jpg" alt="Nosotros" id="couplePhoto">
             <span class="photo-hearts">💕</span>
             <span class="photo-hearts">❤️</span>
         </div>
@@ -870,7 +982,6 @@
             Desde que te conocí, mi vida ha cambiado de maneras que nunca imaginé. 
             Gracias por ser esa persona maravillosa que ilumina cada uno de mis días. 
             Te amo con todo mi corazón... eres lo mejor que me ha pasado.
-            Feliz día del cariño mi niña hermosa, Te amo!
         </p>
     </div>
 
@@ -953,7 +1064,7 @@
             btn.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
         }
 
-        const startDate = new Date(2021, 7, 12, 22, 0, 0);
+        const startDate = new Date(2022, 1, 14);
 
         function updateCounter() {
             const now = new Date();
@@ -1368,6 +1479,11 @@
                                 // Mostrar mensaje romántico AL FINAL (después de todo)
                                 setTimeout(() => {
                                     document.getElementById('romanticMessage').classList.add('show');
+                                    
+                                    // Habilitar scroll en móvil después de que todo se muestre
+                                    if (window.innerWidth <= 768) {
+                                        document.body.classList.add('mobile-scroll');
+                                    }
                                 }, 2500); // Delay más largo para que sea lo último
                             }, 1500);
                         }, 500);
