@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Rebeca - San Valentín ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FFF8E7;
+            --dark-cream: #F5E6D3;
+            --deep-red: #8B0000;
+            --bright-red: #DC143C;
+            --gold: #D4AF37;
+            --dark-gold: #B8941E;
+            --black: #1a1a1a;
+            --green: #2d5016;
+            --light-green: #4a7c2b;
+            --tree-green: #00a878;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, var(--cream) 0%, var(--dark-cream) 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .initial-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--dark-cream) 0%, var(--cream) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .initial-animation.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        .initial-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--deep-red);
+            text-align: center;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 2px 8px rgba(139, 0, 0, 0.2);
+            z-index: 1;
+            position: relative;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .question-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            z-index: 100;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .question-container.show {
+            opacity: 1;
+        }
+
+        .question-container.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .question {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--deep-red);
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.15);
+            letter-spacing: 1px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 40px;
+        }
+
+        button {
+            padding: 22px 60px;
+            font-size: 28px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            border: 3px solid var(--deep-red);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-yes {
+            background: var(--deep-red);
+            color: var(--cream);
+        }
+
+        .btn-yes:hover {
+            background: var(--bright-red);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn-no {
+            background: var(--cream);
+            color: var(--deep-red);
+        }
+
+        /* Semilla personalizada */
+        .seed {
+            position: fixed;
+            width: 12px;
+            height: 16px;
+            background: radial-gradient(ellipse at center, #4a1e1e 0%, #1a0a0a 70%, #0a0505 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            z-index: 110;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: inset -2px -2px 4px rgba(139, 0, 0, 0.3),
+                        0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .seed::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        @keyframes seedFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh - 250px)) rotate(720deg);
+                opacity: 1;
+            }
+        }
+
+        .tree-container {
+            position: fixed;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 90;
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tree-container.show {
+            display: block;
+        }
+
+        .tree-container.move-right {
+            left: calc(100% - 400px);
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .counter-container {
+            position: fixed;
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-150%);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(15px);
+            padding: 25px 35px;
+            border-radius: 50px;
+            box-shadow: 0 4px 24px rgba(139, 0, 0, 0.08);
+            max-width: fit-content;
+            opacity: 0;
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(139, 0, 0, 0.06);
+        }
+
+        .counter-container.show {
+            transform: translateY(-50%) translateX(0);
+            opacity: 1;
+        }
+
+        .counter-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #8B7355;
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .counter-display {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-item {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .counter-item:hover {
+            transform: scale(1.05);
+        }
+
+        .counter-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--deep-red);
+            display: block;
+            line-height: 1;
+        }
+
+        .counter-label {
+            font-size: 11px;
+            color: #8B7355;
+            margin-top: 4px;
+            display: block;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+            opacity: 0.7;
+        }
+
+        .counter-separator {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--deep-red);
+            opacity: 0.4;
+            margin: 0 -5px;
+        }
+
+        .romantic-message {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            max-width: 550px;
+            opacity: 0;
+            transition: all 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 95;
+            text-align: center;
+        }
+
+        .romantic-message.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .photo-frame {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+            filter: drop-shadow(0 8px 24px rgba(139, 0, 0, 0.15));
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 2px var(--deep-red);
+        }
+
+        .photo-hearts {
+            position: absolute;
+            font-size: 24px;
+            animation: floatHeart 3s ease-in-out infinite;
+        }
+
+        .photo-hearts:nth-child(1) {
+            top: -10px;
+            right: -10px;
+            animation-delay: 0s;
+        }
+
+        .photo-hearts:nth-child(2) {
+            bottom: -10px;
+            left: -10px;
+            animation-delay: 1s;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        .romantic-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: #5a3825;
+            line-height: 2;
+            text-align: center;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            padding: 40px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(139, 0, 0, 0.1);
+        }
+
+        .romantic-text::before {
+            content: '"';
+            font-size: 72px;
+            color: var(--deep-red);
+            opacity: 0.2;
+            font-family: 'Playfair Display', serif;
+            position: absolute;
+            left: 15px;
+            top: 0px;
+            line-height: 1;
+        }
+
+        .romantic-text::after {
+            content: '"';
+            font-size: 72px;
+            color: var(--deep-red);
+            opacity: 0.2;
+            font-family: 'Playfair Display', serif;
+            position: absolute;
+            right: 15px;
+            bottom: -10px;
+            line-height: 1;
+        }
+
+        .ground {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            z-index: 80;
+            background: linear-gradient(to bottom, 
+                rgba(74, 124, 43, 0) 0%,
+                rgba(74, 124, 43, 0.3) 20%,
+                #4a7c2b 40%,
+                #3d6624 70%,
+                #2d5016 100%
+            );
+        }
+
+        .grass-layer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grass-blade {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to top, var(--green), var(--light-green));
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .flowers {
+            position: absolute;
+            bottom: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 0 80px;
+            z-index: 2;
+        }
+
+        .flower {
+            font-size: 45px;
+            animation: swayFlower 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .flower:nth-child(2n) {
+            animation-delay: 1s;
+        }
+
+        .flower:nth-child(3n) {
+            animation-delay: 2s;
+        }
+
+        @keyframes swayFlower {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .stones {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 0 100px;
+        }
+
+        .stone {
+            width: 25px;
+            height: 15px;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5845 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 150;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .falling-leaves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 85;
+        }
+
+        @keyframes fallLeft {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(120vh) translateX(-200px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fallRight {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(120vh) translateX(200px) rotate(-720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fallStraight {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(60vh) translateX(30px) rotate(180deg) scale(0.8);
+            }
+            100% {
+                transform: translateY(120vh) translateX(-30px) rotate(360deg) scale(0.6);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Mobile Styles */
+        @media (max-width: 768px) {
+            .question {
+                font-size: 42px;
+                padding: 0 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            button {
+                padding: 18px 50px;
+                font-size: 24px;
+            }
+
+            .tree-container {
+                bottom: 100px;
+                transform: translateX(-50%) scale(0.6);
+            }
+
+            .tree-container.move-right {
+                left: 50%;
+                transform: translateX(-50%) scale(0.6);
+            }
+
+            canvas {
+                width: 400px !important;
+                height: 400px !important;
+            }
+
+            .counter-container {
+                left: 50%;
+                top: auto;
+                bottom: 20px;
+                transform: translateX(-50%);
+                max-width: 90%;
+                padding: 20px 25px;
+            }
+
+            .counter-container.show {
+                transform: translateX(-50%);
+            }
+
+            .counter-title {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .counter-display {
+                gap: 12px;
+            }
+
+            .counter-value {
+                font-size: 24px;
+            }
+
+            .counter-label {
+                font-size: 9px;
+            }
+
+            .counter-separator {
+                font-size: 20px;
+            }
+
+            .romantic-message {
+                max-width: 90%;
+                padding: 0 15px;
+            }
+
+            .photo-frame {
+                width: 140px;
+                height: 140px;
+                margin-bottom: 20px;
+            }
+
+            .romantic-text {
+                font-size: 18px;
+                line-height: 1.7;
+                padding: 30px 25px;
+            }
+
+            .romantic-text::before,
+            .romantic-text::after {
+                font-size: 52px;
+            }
+
+            .ground {
+                height: 120px;
+            }
+
+            .flowers {
+                bottom: 15px;
+                padding: 0 30px;
+            }
+
+            .flower {
+                font-size: 32px;
+            }
+
+            .initial-text {
+                font-size: 36px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question {
+                font-size: 32px;
+            }
+
+            button {
+                padding: 15px 40px;
+                font-size: 20px;
+            }
+
+            .tree-container {
+                transform: translateX(-50%) scale(0.45);
+            }
+
+            .tree-container.move-right {
+                transform: translateX(-50%) scale(0.45);
+            }
+
+            .photo-frame {
+                width: 120px;
+                height: 120px;
+            }
+
+            .romantic-text {
+                font-size: 16px;
+                padding: 25px 20px;
+            }
+
+            .romantic-text::before,
+            .romantic-text::after {
+                font-size: 42px;
+            }
+
+            .initial-text {
+                font-size: 28px;
+            }
+        }
+
+        /* Music Player Styles */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .music-player.show {
+            opacity: 1;
+        }
+
+        .music-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--deep-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .music-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(139, 0, 0, 0.3);
+        }
+
+        .music-button.playing {
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { 
+                box-shadow: 0 4px 20px rgba(139, 0, 0, 0.2);
+            }
+            50% { 
+                box-shadow: 0 4px 30px rgba(220, 20, 60, 0.4);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .music-player {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .music-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    <div class="falling-leaves" id="fallingLeaves"></div>
+    <div class="seed" id="seed"></div>
+
+    <!-- Music Player -->
+    <audio id="backgroundMusic" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-player" id="musicPlayer">
+        <button class="music-button" id="musicButton" onclick="toggleMusic()">
+            🎵
+        </button>
+    </div>
+
+    <div class="initial-animation" id="initialAnimation">
+        <div class="floating-hearts" id="floatingHearts"></div>
+        <div class="initial-text">Para alguien muy especial... 💕</div>
+    </div>
+
+    <div class="question-container" id="questionContainer">
+        <h1 class="question">¿Quieres ser mi San Valentín?</h1>
+        <div class="buttons">
+            <button class="btn-yes" id="btnYes" onclick="handleYes()">¡Sí! 💖</button>
+            <button class="btn-no" id="btnNo" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div class="tree-container" id="treeContainer">
+        <canvas id="treeCanvas" width="700" height="700"></canvas>
+    </div>
+
+    <div class="counter-container" id="counterContainer">
+        <div class="counter-title">Nuestro tiempo juntos...</div>
+        <div class="counter-display">
+            <div class="counter-item">
+                <span class="counter-value" id="days">0</span>
+                <span class="counter-label">días</span>
+            </div>
+            <span class="counter-separator">:</span>
+            <div class="counter-item">
+                <span class="counter-value" id="hours">0</span>
+                <span class="counter-label">horas</span>
+            </div>
+            <span class="counter-separator">:</span>
+            <div class="counter-item">
+                <span class="counter-value" id="minutes">0</span>
+                <span class="counter-label">min</span>
+            </div>
+            <span class="counter-separator">:</span>
+            <div class="counter-item">
+                <span class="counter-value" id="seconds">0</span>
+                <span class="counter-label">seg</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="romantic-message" id="romanticMessage">
+        <div class="photo-frame">
+            <img src="foto-pareja.jpeg" alt="Nosotros" id="couplePhoto">
+            <span class="photo-hearts">💕</span>
+            <span class="photo-hearts">❤️</span>
+        </div>
+        <p class="romantic-text">
+            Desde que te conocí, mi vida ha cambiado de maneras que nunca imaginé. 
+            Gracias por ser esa persona maravillosa que ilumina cada uno de mis días. 
+            Te amo con todo mi corazón... eres lo mejor que me ha pasado.
+            Feliz día del cariño mi niña hermosa, Te amo!
+        </p>
+    </div>
+
+    <div class="ground">
+        <div class="grass-layer" id="grassLayer"></div>
+        <div class="stones">
+            <div class="stone"></div>
+            <div class="stone" style="width: 20px;"></div>
+            <div class="stone" style="width: 30px; height: 18px;"></div>
+            <div class="stone" style="width: 22px;"></div>
+            <div class="stone" style="width: 28px; height: 16px;"></div>
+        </div>
+        <div class="flowers">
+            <span class="flower">🌸</span>
+            <span class="flower">🌺</span>
+            <span class="flower">🌻</span>
+            <span class="flower">🌷</span>
+            <span class="flower">🌹</span>
+            <span class="flower">💐</span>
+            <span class="flower">🌼</span>
+            <span class="flower">🌸</span>
+        </div>
+    </div>
+
+    <script>
+        const sparklesContainer = document.getElementById('sparkles');
+        for (let i = 0; i < 30; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            sparklesContainer.appendChild(sparkle);
+        }
+
+        const grassLayer = document.getElementById('grassLayer');
+        for (let i = 0; i < 150; i++) {
+            const blade = document.createElement('div');
+            blade.className = 'grass-blade';
+            blade.style.left = Math.random() * 100 + '%';
+            blade.style.height = (Math.random() * 40 + 20) + 'px';
+            blade.style.animationDelay = Math.random() * 3 + 's';
+            blade.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            grassLayer.appendChild(blade);
+        }
+
+        const floatingHeartsContainer = document.getElementById('floatingHearts');
+        const heartSymbols = ['❤️', '💕', '💖', '💗', '💝'];
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle';
+            heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 4 + 's';
+            heart.style.fontSize = (Math.random() * 25 + 20) + 'px';
+            floatingHeartsContainer.appendChild(heart);
+        }
+
+        setTimeout(() => {
+            document.getElementById('initialAnimation').classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('questionContainer').classList.add('show');
+                document.getElementById('musicPlayer').classList.add('show');
+                // Intentar reproducir música automáticamente
+                setTimeout(() => attemptAutoplay(), 500);
+            }, 1000);
+        }, 3500);
+
+        function moveNoButton() {
+            const btn = document.getElementById('btnNo');
+            const maxX = window.innerWidth - btn.offsetWidth - 40;
+            const maxY = window.innerHeight - btn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        }
+
+        const startDate = new Date(2021, 7, 12, 22, 0, 0);
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        let counterInterval;
+
+        // Music player functionality
+        const music = document.getElementById('backgroundMusic');
+        const musicButton = document.getElementById('musicButton');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicButton.textContent = '🎵';
+                musicButton.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                music.play().then(() => {
+                    musicButton.textContent = '🎶';
+                    musicButton.classList.add('playing');
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log('Autoplay was prevented:', error);
+                });
+            }
+        }
+
+        // Try to autoplay music (will likely be blocked by browser)
+        function attemptAutoplay() {
+            music.play().then(() => {
+                musicButton.textContent = '🎶';
+                musicButton.classList.add('playing');
+                isPlaying = true;
+            }).catch(() => {
+                // Autoplay was prevented, user needs to click
+                musicButton.textContent = '🎵';
+            });
+        }
+
+        function handleYes() {
+            const btnYes = document.getElementById('btnYes');
+            const rect = btnYes.getBoundingClientRect();
+            const seed = document.getElementById('seed');
+            
+            seed.style.left = (rect.left + rect.width / 2 - 6) + 'px';
+            seed.style.top = rect.top + 'px';
+            seed.style.opacity = '1';
+            seed.style.animation = 'seedFall 1.5s ease-in forwards';
+            
+            document.getElementById('questionContainer').classList.add('hide');
+            
+            setTimeout(() => {
+                seed.style.opacity = '0';
+                document.getElementById('treeContainer').classList.add('show');
+                setTimeout(() => {
+                    drawTree();
+                }, 300);
+            }, 1500);
+        }
+
+        let treeHeartPositions = [];
+        function startFallingLeaves() {
+            setInterval(() => {
+                if (treeHeartPositions.length > 0 && Math.random() > 0.6) {
+                    const randomHeart = treeHeartPositions[Math.floor(Math.random() * treeHeartPositions.length)];
+                    createFallingLeaf(randomHeart.x, randomHeart.y);
+                }
+            }, 600);
+        }
+
+        function createFallingLeaf(canvasX, canvasY) {
+            const container = document.getElementById('treeContainer');
+            const rect = container.getBoundingClientRect();
+            
+            const leaf = document.createElement('div');
+            leaf.style.position = 'absolute';
+            leaf.style.left = (rect.left + canvasX) + 'px';
+            leaf.style.top = (rect.top + canvasY) + 'px';
+            leaf.style.fontSize = (14 + Math.random() * 8) + 'px';
+            
+            const heartTypes = ['❤️', '💕', '💖', '💗', '💝'];
+            leaf.textContent = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            
+            // Seleccionar tipo de animación aleatoria
+            const animations = ['fallLeft', 'fallRight', 'fallStraight'];
+            const selectedAnimation = animations[Math.floor(Math.random() * animations.length)];
+            const duration = 3 + Math.random() * 2;
+            
+            leaf.style.animation = `${selectedAnimation} ${duration}s ease-in-out forwards`;
+            
+            document.getElementById('fallingLeaves').appendChild(leaf);
+            
+            setTimeout(() => {
+                leaf.remove();
+            }, duration * 1000 + 500);
+        }
+
+        function drawTree() {
+            const canvas = document.getElementById('treeCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            const centerX = canvas.width / 2;
+            const groundY = canvas.height;
+            
+            const heartColors = ['#DC143C', '#FF1744', '#f50057', '#ff4081', '#ff6090', '#ffc0cb', '#ffb3ba', '#D4AF37', '#FF69B4', '#f72585'];
+            
+            const hearts = [];
+            let branchSpeed = 1; // Multiplicador de velocidad que irá aumentando
+            
+            // Función para animar crecimiento con curvas
+            function animateGrowingBranch(x1, y1, x2, y2, startWidth, endWidth, color, callback) {
+                let progress = 0;
+                const baseDuration = 800;
+                const duration = baseDuration / branchSpeed; // Aplicar aceleración
+                const startTime = Date.now();
+                
+                function grow() {
+                    const elapsed = Date.now() - startTime;
+                    progress = Math.min(elapsed / duration, 1);
+                    
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    
+                    const currentX = x1 + (x2 - x1) * eased;
+                    const currentY = y1 + (y2 - y1) * eased;
+                    
+                    // Control points para curva
+                    const cp1x = x1 + (x2 - x1) * 0.3;
+                    const cp1y = y1 + (y2 - y1) * 0.2;
+                    const cp2x = x1 + (x2 - x1) * 0.7 * eased;
+                    const cp2y = y1 + (y2 - y1) * 0.6 * eased;
+                    
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = startWidth - (startWidth - endWidth) * eased;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, currentX, currentY);
+                    ctx.stroke();
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(grow);
+                    } else if (callback) {
+                        callback(x2, y2);
+                    }
+                }
+                
+                grow();
+            }
+            
+            // Iniciar árbol
+            function startTreeAnimation() {
+                const trunkHeight = 200;
+                const trunkTop = groundY - trunkHeight;
+                
+                // 1. Tronco principal
+                animateGrowingBranch(
+                    centerX, groundY,
+                    centerX, trunkTop,
+                    35, 20,
+                    '#00a878',
+                    () => {
+                        branchSpeed = 1.5; // Acelerar después del tronco
+                        // 2. Crear 5 ramas principales desde los lados del tronco
+                        const branchStartPoints = [
+                            { y: groundY - trunkHeight * 0.5, side: -1 }, // Izquierda
+                            { y: groundY - trunkHeight * 0.6, side: 1 },  // Derecha
+                            { y: groundY - trunkHeight * 0.7, side: -1 }, // Izquierda
+                            { y: groundY - trunkHeight * 0.8, side: 1 },  // Derecha
+                            { y: groundY - trunkHeight * 0.9, side: 0 }   // Centro/arriba
+                        ];
+                        
+                        const branchEnds = [];
+                        let branchIndex = 0;
+                        
+                        function growNextMainBranch() {
+                            if (branchIndex >= branchStartPoints.length) {
+                                // Crecer ramas secundarias
+                                growSecondaryBranches();
+                                return;
+                            }
+                            
+                            const point = branchStartPoints[branchIndex];
+                            const startX = centerX + (point.side * 10); // Offset desde el tronco
+                            const startY = point.y;
+                            
+                            // Ángulos mejorados para crecimiento natural
+                            let angle;
+                            if (point.side === 0) {
+                                // Rama central - hacia arriba
+                                angle = -Math.PI / 2;
+                            } else if (point.side === -1) {
+                                // Ramas izquierdas - diagonal izquierda arriba
+                                angle = -Math.PI * 0.65 - (branchIndex * 0.05);
+                            } else {
+                                // Ramas derechas - diagonal derecha arriba
+                                angle = -Math.PI * 0.35 + (branchIndex * 0.05);
+                            }
+                            
+                            const length = 170 + Math.random() * 30;
+                            
+                            const endX = startX + Math.cos(angle) * length;
+                            const endY = startY + Math.sin(angle) * length;
+                            
+                            animateGrowingBranch(
+                                startX, startY,
+                                endX, endY,
+                                16, 6,
+                                '#00a878',
+                                () => {
+                                    branchEnds.push({ x: endX, y: endY, angle: angle });
+                                    branchIndex++;
+                                    branchSpeed += 0.2; // Acelerar progresivamente
+                                    growNextMainBranch();
+                                }
+                            );
+                        }
+                        
+                        function growSecondaryBranches() {
+                            let secIndex = 0;
+                            const allBranchEnds = [...branchEnds];
+                            branchSpeed = 2.5; // Aún más rápido para ramas secundarias
+                            
+                            function growNextSecondary() {
+                                if (secIndex >= branchEnds.length) {
+                                    // Agregar ramas terciarias (más pequeñitas)
+                                    growTertiaryBranches(allBranchEnds);
+                                    return;
+                                }
+                                
+                                const mainBranch = branchEnds[secIndex];
+                                
+                                // Crear 2 ramas secundarias por cada rama principal
+                                const angles = [
+                                    mainBranch.angle + (Math.random() * 0.4 + 0.4),  // Rama hacia un lado
+                                    mainBranch.angle - (Math.random() * 0.4 + 0.4)   // Rama hacia el otro lado
+                                ];
+                                
+                                let subBranchCount = 0;
+                                
+                                function growSubBranch() {
+                                    if (subBranchCount >= angles.length) {
+                                        secIndex++;
+                                        growNextSecondary();
+                                        return;
+                                    }
+                                    
+                                    const secAngle = angles[subBranchCount];
+                                    const secLength = 80 + Math.random() * 20;
+                                    
+                                    const secEndX = mainBranch.x + Math.cos(secAngle) * secLength;
+                                    const secEndY = mainBranch.y + Math.sin(secAngle) * secLength;
+                                    
+                                    animateGrowingBranch(
+                                        mainBranch.x, mainBranch.y,
+                                        secEndX, secEndY,
+                                        8, 3,
+                                        '#00a878',
+                                        () => {
+                                            allBranchEnds.push({ x: secEndX, y: secEndY, angle: secAngle });
+                                            subBranchCount++;
+                                            growSubBranch();
+                                        }
+                                    );
+                                }
+                                
+                                growSubBranch();
+                            }
+                            
+                            function growTertiaryBranches(branches) {
+                                let terIndex = 0;
+                                branchSpeed = 3.5; // Máxima velocidad para ramas pequeñas
+                                
+                                function growNextTertiary() {
+                                    if (terIndex >= branches.length) {
+                                        setTimeout(() => fillWithHearts(), 300);
+                                        return;
+                                    }
+                                    
+                                    const branch = branches[terIndex];
+                                    const terAngle = branch.angle + (Math.random() - 0.5) * 0.8;
+                                    const terLength = 40 + Math.random() * 20;
+                                    
+                                    const terEndX = branch.x + Math.cos(terAngle) * terLength;
+                                    const terEndY = branch.y + Math.sin(terAngle) * terLength;
+                                    
+                                    animateGrowingBranch(
+                                        branch.x, branch.y,
+                                        terEndX, terEndY,
+                                        4, 1,
+                                        '#00a878',
+                                        () => {
+                                            terIndex++;
+                                            growNextTertiary();
+                                        }
+                                    );
+                                }
+                                
+                                growNextTertiary();
+                            }
+                            
+                            growNextSecondary();
+                        }
+                        
+                        growNextMainBranch();
+                    }
+                );
+            }
+            
+            // Llenar con corazones
+            function fillWithHearts() {
+                const heartCenterY = groundY - 370;
+                
+                // Generar múltiples capas de corazones para mejor cobertura
+                const heartShape = [];
+                
+                // Capa 1: Contorno principal (más denso)
+                for (let t = 0; t < Math.PI * 2; t += 0.006) {
+                    const x = 16 * Math.pow(Math.sin(t), 3);
+                    const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                    heartShape.push({ 
+                        x: x * 14 + centerX, 
+                        y: y * 14 + heartCenterY,
+                        layer: 'outer'
+                    });
+                }
+                
+                // Capas 2-10: Relleno interno muy muy denso (más capas concéntricas)
+                for (let scale = 0.92; scale >= 0.1; scale -= 0.08) {
+                    for (let t = 0; t < Math.PI * 2; t += 0.008) {
+                        const x = 16 * Math.pow(Math.sin(t), 3);
+                        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                        heartShape.push({ 
+                            x: x * 14 * scale + centerX, 
+                            y: y * 14 * scale + heartCenterY,
+                            layer: 'inner'
+                        });
+                    }
+                }
+                
+                // Generar MUCHOS más corazones con distribución mejorada
+                for (let i = 0; i < 1200; i++) {
+                    const point = heartShape[Math.floor(Math.random() * heartShape.length)];
+                    
+                    // Spread más controlado para corazón más denso
+                    const spreadMultiplier = point.layer === 'outer' ? 0.7 : 0.4;
+                    const spreadX = (Math.random() - 0.5) * 40 * spreadMultiplier;
+                    const spreadY = (Math.random() - 0.5) * 40 * spreadMultiplier;
+                    
+                    // Más corazones pequeños para mejor densidad
+                    const sizeType = Math.random();
+                    let size;
+                    if (sizeType < 0.08) {
+                        size = Math.random() * 8 + 18; // Muy muy grandes (menos)
+                    } else if (sizeType < 0.2) {
+                        size = Math.random() * 6 + 13; // Muy grandes
+                    } else if (sizeType < 0.4) {
+                        size = Math.random() * 5 + 10; // Grandes
+                    } else if (sizeType < 0.65) {
+                        size = Math.random() * 4 + 7; // Medianos
+                    } else {
+                        size = Math.random() * 3 + 4; // Pequeños (más)
+                    }
+                    
+                    hearts.push({
+                        x: point.x + spreadX,
+                        y: point.y + spreadY,
+                        size: size,
+                        color: heartColors[Math.floor(Math.random() * heartColors.length)],
+                        rotation: Math.random() * 360
+                    });
+                }
+                
+                // Dibujar corazones con efecto de aparición
+                let heartIndex = 0;
+                function drawNextHeart() {
+                    if (heartIndex < hearts.length) {
+                        const h = hearts[heartIndex];
+                        drawHeart(h.x, h.y, h.size, h.color, h.rotation);
+                        treeHeartPositions.push({ x: h.x, y: h.y });
+                        
+                        // Efecto de brillito al aparecer
+                        if (heartIndex % 8 === 0) {
+                            drawSparkle(h.x, h.y);
+                        }
+                        
+                        heartIndex++;
+                        setTimeout(drawNextHeart, 2); // Más rápido (de 3 a 2ms)
+                    } else {
+                        setTimeout(() => {
+                            document.getElementById('treeContainer').classList.add('move-right');
+                            setTimeout(() => {
+                                document.getElementById('counterContainer').classList.add('show');
+                                counterInterval = setInterval(updateCounter, 1000);
+                                updateCounter();
+                                startFallingLeaves();
+                                
+                                // Mostrar mensaje romántico AL FINAL (después de todo)
+                                setTimeout(() => {
+                                    document.getElementById('romanticMessage').classList.add('show');
+                                }, 2500); // Delay más largo para que sea lo último
+                            }, 1500);
+                        }, 500);
+                    }
+                }
+                
+                drawNextHeart();
+            }
+            
+            // Dibujar efecto de brillito
+            function drawSparkle(x, y) {
+                ctx.save();
+                ctx.translate(x, y);
+                
+                ctx.fillStyle = '#FFD700';
+                ctx.shadowColor = '#FFD700';
+                ctx.shadowBlur = 10;
+                
+                for (let i = 0; i < 4; i++) {
+                    ctx.save();
+                    ctx.rotate((i * Math.PI) / 4);
+                    ctx.beginPath();
+                    ctx.moveTo(0, -8);
+                    ctx.lineTo(0, 8);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+                
+                ctx.restore();
+            }
+            
+            // Dibujar corazón
+            function drawHeart(x, y, size, color, rotation) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rotation * Math.PI / 180);
+                
+                ctx.fillStyle = color;
+                ctx.shadowColor = 'rgba(0,0,0,0.15)';
+                ctx.shadowBlur = 3;
+                
+                // Algunos corazones tendrán un brillo extra
+                if (Math.random() > 0.9) {
+                    ctx.shadowColor = color;
+                    ctx.shadowBlur = 8;
+                }
+                
+                ctx.beginPath();
+                const topCurveHeight = size * 0.3;
+                ctx.moveTo(0, topCurveHeight);
+                
+                ctx.bezierCurveTo(0, 0, -size / 2, 0, -size / 2, topCurveHeight);
+                ctx.bezierCurveTo(-size / 2, (size + topCurveHeight) / 2, 0, (size + topCurveHeight) / 1.2, 0, size);
+                ctx.bezierCurveTo(0, (size + topCurveHeight) / 1.2, size / 2, (size + topCurveHeight) / 2, size / 2, topCurveHeight);
+                ctx.bezierCurveTo(size / 2, 0, 0, 0, 0, topCurveHeight);
+                
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+            
+            startTreeAnimation();
+        }
+    </script>
+</body>
+</html>
